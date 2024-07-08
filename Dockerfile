@@ -17,4 +17,4 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 
 # 指定启动命令
-CMD ["python", "app.py "]
+CMD ["python", "app.py"]
