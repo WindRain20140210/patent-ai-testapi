@@ -1,20 +1,16 @@
-# 使用官方 Python 基础镜像
+# 使用官方的 Python 镜像作为基础镜像
 FROM python:3.9-slim
-
 # 设置工作目录
 WORKDIR /app
-
-# 复制项目文件到工作目录
+# 将当前目录的内容复制到工作目录
 COPY . .
-
-# 安装项目依赖
-RUN pip install Flask
-
-# 暴露端口，如果你的 Flask 应用程序监听的是不同的端口，确保在这里设置正确的端口号
-EXPOSE 5000
-
-# 定义环境变量
+# 安装 Python 依赖
+RUN pip install --no-cache-dir -r requirements.txt
+# 设置环境变量，以便 Flask 在容器中运行
 ENV FLASK_APP=app.py
-
-# 指定启动命令
-CMD ["python", "app.py"]
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
+# 启动 Flask 应用
+CMD ["flask", "run"]
+# 暴露端口
+EXPOSE 5000
